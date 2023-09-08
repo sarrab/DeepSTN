@@ -21,12 +21,20 @@ device=6
 import os
 os.environ["CUDA_VISIBLE_DEVICES"]=str(device)
 import tensorflow as tf  #from V1707
-config=tf.ConfigProto()  #from V1707
-config.gpu_options.allow_growth=True  #from V1707
+#config=tf.ConfigProto()  #from V1707
+#config.gpu_options.allow_growth=True  #from V1707
 #config.gpu_options.per_process_gpu_memory_fraction=0.5
-sess=tf.Session(config=config)  #from V1707
+#sess=tf.Session(config=config)  #from V1707
 #import keras.backend.tensorflow_backend as KTF
 #KTF._set_session(tf.Session(config=config))
+# Allow GPU memory growth
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    except RuntimeError as e:
+        print(e)
 import setproctitle  #from V1707
 setproctitle.setproctitle('Comprison Start! @ ZiqianLin')  #from V1707
 
